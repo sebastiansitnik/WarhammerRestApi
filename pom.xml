@@ -46,19 +46,24 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>8.0.19</version>
 		</dependency>
-		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-swagger2</artifactId>
-			<version>3.0.0</version>
-		</dependency>
-		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-swagger-ui</artifactId>
-			<version>3.0.0</version>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>io.springfox</groupId>-->
+<!--			<artifactId>springfox-swagger2</artifactId>-->
+<!--			<version>3.0.0</version>-->
+<!--		</dependency>-->
+<!--		<dependency>-->
+<!--			<groupId>io.springfox</groupId>-->
+<!--			<artifactId>springfox-swagger-ui</artifactId>-->
+<!--			<version>3.0.0</version>-->
+<!--		</dependency>-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-boot-starter</artifactId>
+			<version>3.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -91,14 +96,6 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-<!--			<plugin>-->
-<!--				<groupId>org.apache.maven.plugins</groupId>-->
-<!--				<artifactId>maven-compiler-plugin</artifactId>-->
-<!--				<configuration>-->
-<!--					<source>2.0</source>-->
-<!--					<target>2.0</target>-->
-<!--				</configuration>-->
-<!--			</plugin>-->
 		</plugins>
 	</build>
 
