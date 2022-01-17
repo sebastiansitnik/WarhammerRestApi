@@ -16,6 +16,7 @@ public class ArticlesController {
         this.articlesService = articlesService;
     }
 
+        @CrossOrigin(origins = "http://localhost:8080")
         @PostMapping
         public Article createArticle(@RequestBody Article art){
             return articlesService.createArticle(art);
