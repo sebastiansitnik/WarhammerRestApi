@@ -17,7 +17,7 @@ public class ArticlesController {
     }
     
     
-        @CrossOrigin(origins = "http://localhost:3000")
+        @CrossOrigin(origins = "http://127.0.0.1:5500/panel.html")
         @PostMapping
         public Article createArticle(@RequestBody Article art){
             return articlesService.createArticle(art);
