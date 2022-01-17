@@ -23,6 +23,7 @@ public class ArticlesController {
             return articlesService.createArticle(art);
         }
 
+        @CrossOrigin
         @GetMapping
         public Article readArticle(@RequestParam String id){
             return articlesService.readArticleById(id);
