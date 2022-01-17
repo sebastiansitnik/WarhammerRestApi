@@ -13,6 +13,9 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Warhammer40k-WebService</name>
 	<description>WebService for handling articles on website</description>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
 <!--	<properties>-->
 <!--&lt;!&ndash;		<java.version>11</java.version>&ndash;&gt;-->
 <!--	</properties>-->
