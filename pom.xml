@@ -13,9 +13,9 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Warhammer40k-WebService</name>
 	<description>WebService for handling articles on website</description>
-	<properties>
-		<java.version>11</java.version>
-	</properties>
+<!--	<properties>-->
+<!--&lt;!&ndash;		<java.version>11</java.version>&ndash;&gt;-->
+<!--	</properties>-->
 	<dependencies>
 		<dependency>
 			<groupId>com.google.guava</groupId>
