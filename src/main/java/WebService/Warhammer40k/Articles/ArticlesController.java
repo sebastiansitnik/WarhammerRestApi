@@ -44,5 +44,10 @@ public class ArticlesController {
             return articlesService.deleteById(id);
         }
 
+        @GetMapping
+        public List<Article> searchByTitle(@RequestParam String title){
+            return articlesService.searchByTitle(title);
+        }
+
 
 }

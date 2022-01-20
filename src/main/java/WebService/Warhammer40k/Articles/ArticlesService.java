@@ -3,6 +3,7 @@ package WebService.Warhammer40k.Articles;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -37,5 +38,14 @@ public class ArticlesService {
         Article articleForDelete = readArticleById(id);
         articlesRepository.deleteById(id);
         return articleForDelete;
+    }
+
+    public List<Article> searchByTitle(String title){
+
+        List<Article> result;
+
+        result = articlesRepository.getArticlesByTitle(title, Sort.by("date").descending());
+
+        return result;
     }
 }
