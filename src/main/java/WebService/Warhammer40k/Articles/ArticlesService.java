@@ -44,7 +44,7 @@ public class ArticlesService {
 
         List<Article> result;
 
-        result = articlesRepository.getArticlesByTitle(title, Sort.by("date").descending());
+        result = articlesRepository.getArticlesByTitleContaining(title, Sort.by("date").descending());
 
         return result;
     }
