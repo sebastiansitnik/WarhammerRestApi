@@ -22,7 +22,26 @@ public class ArticlesService {
         this.articleTransformation = articleTransformation;
     }
 
+    public float findFirstAvailableId(){
+
+        float result;
+        try{
+            Article lastArticle = articlesRepository.findAll(Sort.by("id").descending()).stream().findFirst().orElseThrow(NoSuchElementException::new);
+            result = Float.parseFloat(lastArticle.getId())+1;
+        } catch (NoSuchElementException e){
+            result = 1;
+        }
+
+        return result;
+
+
+    }
+
     public ArticleDTO createArticle(ArticleDTO artDTO){
+
+        String id = String.valueOf(findFirstAvailableId());
+        artDTO.setId(id);
+        artDTO.setUrl(artDTO.getTitle().toLowerCase().replace(" ",""));
 
         return toDTO(articlesRepository
                 .save(toEntity(artDTO)));

@@ -11,8 +11,8 @@ import javax.validation.constraints.NotEmpty;
 public class Article {
 
     @Id
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+//    @GeneratedValue(generator = "system-uuid")
+//    @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private String id;
     @NotEmpty
     private String title;

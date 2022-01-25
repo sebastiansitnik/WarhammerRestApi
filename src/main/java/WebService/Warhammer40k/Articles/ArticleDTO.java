@@ -4,6 +4,7 @@ import javax.validation.constraints.NotEmpty;
 
 public class ArticleDTO {
 
+
     private String id;
 
     @NotEmpty
