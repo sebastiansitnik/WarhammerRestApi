@@ -1,61 +1,33 @@
 package WebService.Warhammer40k.Articles;
 
-import WebService.Warhammer40k.Category.Category;
-import org.hibernate.annotations.GenericGenerator;
-
-import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 
+public class ArticleDTO {
 
-@Entity
-public class Article {
-
-    @Id
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private String id;
+
     @NotEmpty
     private String title;
+
     @NotEmpty
     private String author;
+
     @NotEmpty
     private String content;
+
+    @NotEmpty
     private String date;
+
     @NotEmpty
     private String keyword;
 
-    @ManyToOne
-    @JoinColumn
-    private Category category;
     @NotEmpty
-    private String URL;
+    private String categoryId;
 
-    public Article(){
+    @NotEmpty
+    private String url;
 
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public String getURL() {
-        return URL;
-    }
-
-    public void setURL(String URL) {
-        this.URL = URL;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
+    public ArticleDTO() {
     }
 
     public String getId() {
@@ -90,11 +62,35 @@ public class Article {
         this.content = content;
     }
 
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
     public String getKeyword() {
         return keyword;
     }
 
     public void setKeyword(String keyword) {
         this.keyword = keyword;
+    }
+
+    public String getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

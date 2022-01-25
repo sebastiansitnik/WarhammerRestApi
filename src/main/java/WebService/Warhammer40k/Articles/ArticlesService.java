@@ -7,45 +7,65 @@ import org.springframework.data.domain.Sort;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 @Service
 public class ArticlesService {
 
     private final ArticlesRepository articlesRepository;
+    private final ArticleTransformation articleTransformation;
+
 
     @Autowired
-    public ArticlesService(ArticlesRepository articlesRepository) {
+    public ArticlesService(ArticlesRepository articlesRepository, ArticleTransformation articleTransformation) {
         this.articlesRepository = articlesRepository;
+        this.articleTransformation = articleTransformation;
     }
 
-    public Article createArticle(Article art){
-        return articlesRepository.save(art);
+    public ArticleDTO createArticle(ArticleDTO artDTO){
+
+        return toDTO(articlesRepository
+                .save(toEntity(artDTO)));
     }
 
-    public Article readArticleById(String id){
-        return articlesRepository.findById(id).orElseThrow(NoSuchElementException::new);
+    public ArticleDTO readArticleById(String id){
+        return toDTO(articlesRepository
+                .findById(id)
+                .orElseThrow(NoSuchElementException::new));
     }
 
-    public List<Article> readAll(){
-        return articlesRepository.findAll();
+    public List<ArticleDTO> readAll(){
+        return articlesRepository.findAll()
+                .stream()
+                .map(this::toDTO)
+                .collect(Collectors.toList());
     }
 
-    public Article editArticle(Article art){
-        return articlesRepository.save(art);
+    public ArticleDTO editArticle(ArticleDTO artDTO){
+        return toDTO(articlesRepository
+                        .save(toEntity(artDTO)));
     }
 
-    public Article deleteById (String id){
-        Article articleForDelete = readArticleById(id);
+    public ArticleDTO deleteById (String id){
+        Article articleForDelete = toEntity(readArticleById(id));
         articlesRepository.deleteById(id);
-        return articleForDelete;
+        return toDTO(articleForDelete);
     }
 
-    public List<Article> searchByTitle(String title){
+    public List<ArticleDTO> searchByTitle(String title){
 
         List<Article> result;
 
         result = articlesRepository.getArticlesByTitleContaining(title, Sort.by("date").descending());
 
-        return result;
+        return result.stream().map(this::toDTO).collect(Collectors.toList());
+    }
+
+    public Article toEntity(ArticleDTO articleDTO){
+        return articleTransformation.toEntity(articleDTO);
+    }
+
+    public ArticleDTO toDTO(Article article){
+        return articleTransformation.toDTO(article);
     }
 }

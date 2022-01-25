@@ -19,34 +19,34 @@ public class ArticlesController {
     
         @CrossOrigin
         @PostMapping
-        public Article createArticle(@RequestBody Article art){
+        public ArticleDTO createArticle(@RequestBody ArticleDTO art){
             return articlesService.createArticle(art);
         }
 
         @CrossOrigin
         @GetMapping
-        public Article readArticle(@RequestParam String id){
+        public ArticleDTO readArticle(@RequestParam String id){
             return articlesService.readArticleById(id);
         }
 
         @GetMapping("/all")
-        public List<Article> readAllArticles(){
+        public List<ArticleDTO> readAllArticles(){
             return articlesService.readAll();
         }
 
         @PutMapping("/edit")
-        public Article editArticle(@RequestBody Article article){
+        public ArticleDTO editArticle(@RequestBody ArticleDTO article){
             return articlesService.editArticle(article);
         }
 
         @DeleteMapping("/delete")
-        public Article deleteArticle(@RequestParam String id){
+        public ArticleDTO deleteArticle(@RequestParam String id){
             return articlesService.deleteById(id);
         }
 
         @CrossOrigin
         @GetMapping("/searchByTitle")
-        public List<Article> searchByTitle(@RequestParam String title){
+        public List<ArticleDTO> searchByTitle(@RequestParam String title){
             return articlesService.searchByTitle(title);
         }
 
