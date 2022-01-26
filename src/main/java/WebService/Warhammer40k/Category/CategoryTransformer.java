@@ -61,5 +61,16 @@ public class CategoryTransformer {
         return entity;
     }
 
+    public CategoryEditorDTO toCategoryEditorDTO(Category category){
+
+        CategoryEditorDTO categoryEditorDTO = new CategoryEditorDTO();
+
+        categoryEditorDTO.setId(category.getId());
+        categoryEditorDTO.setName(category.getName());
+        categoryEditorDTO.setUrl(category.getURL());
+
+        return categoryEditorDTO;
+    }
+
 
 }

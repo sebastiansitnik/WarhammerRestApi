@@ -61,6 +61,13 @@ public class CategoryService {
 
     }
 
+    public List<CategoryEditorDTO> readAllCategoriesNames(){
+
+        return categoryRepository.findAll().stream()
+                .map(categoryTransformer::toCategoryEditorDTO)
+                .collect(Collectors.toList());
+    }
+
     public final CategoryDTO toDTO(Category category){
         return categoryTransformer.toDTO(category);
     }

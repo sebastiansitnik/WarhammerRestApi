@@ -39,10 +39,17 @@ public class CategoryController {
     public CategoryDTO deleteById(@RequestParam String id){
         return categoryService.deleteCategory(id);
     }
+
     @CrossOrigin
     @GetMapping("/readAll")
     public List<CategoryDTO> readAll (){
         return categoryService.readAllCategories();
+    }
+
+    @CrossOrigin
+    @GetMapping("/readAllCategoriesNames")
+    public List<CategoryEditorDTO> readAllCategoriesNames (){
+        return categoryService.readAllCategoriesNames();
     }
 
 
