@@ -10,10 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -111,11 +108,13 @@ public class ArticlesService {
 
         List<KeywordDTO> result = new ArrayList<>();
 
+        Set<String> uniqueKeywords = new HashSet<>(Arrays.asList(keywords));
+
         ArticleDTO articleForKeywords = readArticleById(articleID);
 
-        for (String keyword: keywords) {
-            result.add(keywordTransformer.keywordNameToDto(keyword, articleForKeywords));
-        }
+        result = uniqueKeywords.stream()
+                .map(keyword -> keywordTransformer.keywordNameToDto(keyword,articleForKeywords))
+                .collect(Collectors.toList());
 
         result = keywordService.setKeywords(result);
 
