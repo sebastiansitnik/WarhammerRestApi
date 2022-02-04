@@ -1,5 +1,6 @@
 package WebService.Warhammer40k.Keyword;
 
+import WebService.Warhammer40k.Articles.ArticleDTO;
 import WebService.Warhammer40k.Articles.ArticleTransformation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -36,6 +37,17 @@ public class KeywordTransformer {
         dto.setArticleDTO(articleTransformation.toDTO(entity.getArticle()));
 
         return dto;
+    }
+
+    public KeywordDTO keywordNameToDto(String keywordName, ArticleDTO articleDTO){
+
+        KeywordDTO dto = new KeywordDTO();
+
+        dto.setArticleDTO(articleDTO);
+        dto.setKeyword(keywordName);
+
+        return dto;
+
     }
 
 }

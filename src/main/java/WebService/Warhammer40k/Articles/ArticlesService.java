@@ -2,12 +2,16 @@ package WebService.Warhammer40k.Articles;
 
 
 import WebService.Warhammer40k.Keyword.Keyword;
+import WebService.Warhammer40k.Keyword.KeywordDTO;
 import WebService.Warhammer40k.Keyword.KeywordService;
+import WebService.Warhammer40k.Keyword.KeywordTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Sort;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
@@ -18,13 +22,15 @@ public class ArticlesService {
     private final ArticlesRepository articlesRepository;
     private final ArticleTransformation articleTransformation;
     private final KeywordService keywordService;
+    private final KeywordTransformer keywordTransformer;
 
 
     @Autowired
-    public ArticlesService(ArticlesRepository articlesRepository, ArticleTransformation articleTransformation, KeywordService keywordService) {
+    public ArticlesService(KeywordTransformer keywordTransformer, ArticlesRepository articlesRepository, ArticleTransformation articleTransformation, KeywordService keywordService) {
         this.articlesRepository = articlesRepository;
         this.articleTransformation = articleTransformation;
         this.keywordService = keywordService;
+        this.keywordTransformer = keywordTransformer;
     }
 
     public float findFirstAvailableId(){
@@ -99,5 +105,25 @@ public class ArticlesService {
 
     public ArticleDTO toDTO(Article article){
         return articleTransformation.toDTO(article);
+    }
+
+    public List<KeywordDTO> addKeywordsToArticle(String[] keywords, String articleID) {
+
+        List<KeywordDTO> result = new ArrayList<>();
+
+        ArticleDTO articleForKeywords = readArticleById(articleID);
+
+        for (String keyword: keywords) {
+            result.add(keywordTransformer.keywordNameToDto(keyword, articleForKeywords));
+        }
+
+        result = keywordService.setKeywords(result);
+
+        return result;
+    }
+
+    public List<String>readAllIdOfOldEntitiesOfArticles (){
+
+        return articlesRepository.getArticleByKeywordsIsNull().stream().map(Article::getId).collect(Collectors.toList());
     }
 }

@@ -5,6 +5,7 @@ import WebService.Warhammer40k.Articles.Article;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -12,7 +13,7 @@ import java.util.stream.Collectors;
 public class KeywordService {
 
     private final KeywordRepository keywordRepository;
-    private final KeywordTransformer keywordTransformer;
+    public final KeywordTransformer keywordTransformer;
 
     @Autowired
     public KeywordService(KeywordRepository keywordRepository, KeywordTransformer keywordTransformer) {
@@ -44,7 +45,6 @@ public class KeywordService {
 
         return keywordTransformer.toDto(keyword);
     }
-
 
 
 

@@ -10,6 +10,7 @@ import java.util.List;
 public interface ArticlesRepository extends JpaRepository<Article, String> {
 
     List<Article> getArticlesByTitleContaining(String title, Sort sort);
+    List<Article> getArticleByKeywordsIsNull();
 
 
 }
