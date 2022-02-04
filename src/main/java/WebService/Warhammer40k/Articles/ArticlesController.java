@@ -19,7 +19,7 @@ public class ArticlesController {
     
         @CrossOrigin
         @PostMapping
-        public ArticleDTO createArticle(@RequestBody ArticleDTO art){
+        public ArticleDTO createArticle(@RequestBody NewArticleDTO art){
             return articlesService.createArticle(art);
         }
 

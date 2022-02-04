@@ -1,18 +1,22 @@
 package WebService.Warhammer40k.Articles;
 
 import WebService.Warhammer40k.Category.Category;
+import WebService.Warhammer40k.Keyword.Keyword;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
 public class Article {
 
-    @Id
+
 //    @GeneratedValue(generator = "system-uuid")
 //    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    @Id
     private String id;
     @NotEmpty
     private String title;
@@ -21,8 +25,9 @@ public class Article {
     @NotEmpty
     private String content;
     private String date;
-    @NotEmpty
-    private String keyword;
+
+    @OneToMany (mappedBy = "article")
+    private List<Keyword> keywords = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn
@@ -32,6 +37,14 @@ public class Article {
 
     public Article(){
 
+    }
+
+    public List<Keyword> getKeywords() {
+        return keywords;
+    }
+
+    public void setKeywords(List<Keyword> keywords) {
+        this.keywords = keywords;
     }
 
     public Category getCategory() {
@@ -90,11 +103,4 @@ public class Article {
         this.content = content;
     }
 
-    public String getKeyword() {
-        return keyword;
-    }
-
-    public void setKeyword(String keyword) {
-        this.keyword = keyword;
-    }
 }

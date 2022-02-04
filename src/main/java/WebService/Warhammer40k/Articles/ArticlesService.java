@@ -1,10 +1,13 @@
 package WebService.Warhammer40k.Articles;
 
 
+import WebService.Warhammer40k.Keyword.Keyword;
+import WebService.Warhammer40k.Keyword.KeywordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Sort;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
@@ -14,12 +17,14 @@ public class ArticlesService {
 
     private final ArticlesRepository articlesRepository;
     private final ArticleTransformation articleTransformation;
+    private final KeywordService keywordService;
 
 
     @Autowired
-    public ArticlesService(ArticlesRepository articlesRepository, ArticleTransformation articleTransformation) {
+    public ArticlesService(ArticlesRepository articlesRepository, ArticleTransformation articleTransformation, KeywordService keywordService) {
         this.articlesRepository = articlesRepository;
         this.articleTransformation = articleTransformation;
+        this.keywordService = keywordService;
     }
 
     public float findFirstAvailableId(){
@@ -37,14 +42,22 @@ public class ArticlesService {
 
     }
 
-    public ArticleDTO createArticle(ArticleDTO artDTO){
+    public ArticleDTO createArticle(NewArticleDTO newArtDTO){
 
         String id = String.valueOf(findFirstAvailableId());
-        artDTO.setId(id);
-        artDTO.setUrl(artDTO.getTitle().toLowerCase().replace(" ",""));
+        newArtDTO.setId(id);
+        newArtDTO.setUrl(newArtDTO.getTitle().toLowerCase().replace(" ",""));
 
-        return toDTO(articlesRepository
-                .save(toEntity(artDTO)));
+        Article art = articleTransformation.toEntity(newArtDTO);
+
+        art = articlesRepository.save(art);
+
+        art.setKeywords(new ArrayList<>());
+        keywordService.createKeyword(newArtDTO.getKeyword(),art);
+
+        art = toEntity(readArticleById(art.getId()));
+
+        return toDTO(art);
     }
 
     public ArticleDTO readArticleById(String id){

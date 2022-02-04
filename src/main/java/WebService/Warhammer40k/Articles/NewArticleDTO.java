@@ -6,33 +6,25 @@ import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ArticleDTO {
-
+public class NewArticleDTO {
 
     private String id;
 
-    @NotEmpty
     private String title;
 
-    @NotEmpty
     private String author;
 
-    @NotEmpty
     private String content;
 
-    @NotEmpty
     private String date;
 
-    @NotEmpty
-    private List<KeywordDTO> keywordDTO = new ArrayList<>();
+    private String keyword;
 
-    @NotEmpty
     private String categoryId;
 
-    @NotEmpty
     private String url;
 
-    public ArticleDTO() {
+    public NewArticleDTO() {
     }
 
     public String getId() {
@@ -75,12 +67,12 @@ public class ArticleDTO {
         this.date = date;
     }
 
-    public List<KeywordDTO> getKeywordDTO() {
-        return keywordDTO;
+    public String getKeyword() {
+        return keyword;
     }
 
-    public void setKeywordDTO(List<KeywordDTO> keywordDTO) {
-        this.keywordDTO = keywordDTO;
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
     }
 
     public String getCategoryId() {
