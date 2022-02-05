@@ -1,18 +1,22 @@
 package WebService.Warhammer40k.Keyword;
 
+import WebService.Warhammer40k.Articles.Article;
 import WebService.Warhammer40k.Articles.ArticleDTO;
 import WebService.Warhammer40k.Articles.ArticleTransformation;
+import WebService.Warhammer40k.Articles.ArticlesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.NoSuchElementException;
 
 @Component
 public class KeywordTransformer {
 
-    private final ArticleTransformation articleTransformation;
+    private final ArticlesRepository articlesRepository;
 
     @Autowired
-    public KeywordTransformer(ArticleTransformation articleTransformation) {
-        this.articleTransformation = articleTransformation;
+    public KeywordTransformer(ArticlesRepository articlesRepository) {
+        this.articlesRepository = articlesRepository;
     }
 
     public Keyword toKeyword(KeywordDTO dto){
@@ -22,11 +26,12 @@ public class KeywordTransformer {
         entity.setId(dto.getId());
         entity.setKeyword(dto.getKeyword());
 
-        entity.setArticle(articleTransformation.toEntity(dto.getArticleDTO()));
+        entity.setArticle(articlesRepository.findById(dto.getArticleID()).orElseThrow(NoSuchElementException::new));
 
         return entity;
 
     }
+
 
     public KeywordDTO toDto(Keyword entity){
 
@@ -34,7 +39,7 @@ public class KeywordTransformer {
 
         dto.setId(entity.getId());
         dto.setKeyword(entity.getKeyword());
-        dto.setArticleDTO(articleTransformation.toDTO(entity.getArticle()));
+        dto.setArticleID(entity.getId());
 
         return dto;
     }
@@ -43,7 +48,7 @@ public class KeywordTransformer {
 
         KeywordDTO dto = new KeywordDTO();
 
-        dto.setArticleDTO(articleDTO);
+        dto.setArticleID(articleDTO.getId());
         dto.setKeyword(keywordName);
 
         return dto;

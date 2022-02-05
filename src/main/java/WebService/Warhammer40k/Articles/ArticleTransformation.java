@@ -4,10 +4,7 @@ import WebService.Warhammer40k.Category.Category;
 import WebService.Warhammer40k.Category.CategoryRepository;
 import WebService.Warhammer40k.Category.CategoryService;
 import WebService.Warhammer40k.Category.CategoryTransformer;
-import WebService.Warhammer40k.Keyword.Keyword;
-import WebService.Warhammer40k.Keyword.KeywordRepository;
-import WebService.Warhammer40k.Keyword.KeywordService;
-import WebService.Warhammer40k.Keyword.KeywordTransformer;
+import WebService.Warhammer40k.Keyword.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -21,14 +18,29 @@ public class ArticleTransformation {
     private final CategoryRepository categoryRepository;
     private final KeywordRepository keywordRepository;
 
-    private final KeywordTransformer keywordTransformer = new KeywordTransformer(this);
-
-
 
     @Autowired
     public ArticleTransformation(CategoryRepository categoryRepository, KeywordRepository keywordRepository) {
         this.categoryRepository = categoryRepository;
         this.keywordRepository = keywordRepository;
+    }
+
+    private List<Keyword> addKeywordsToEntity(ArticleDTO articleDTO, Article article){
+
+        List<Keyword> result = new ArrayList<>();
+
+        for (KeywordDTO dto:articleDTO.getKeywordDTO()) {
+
+            Keyword temp = new Keyword();
+            temp.setArticle(article);
+            temp.setKeyword(dto.getKeyword());
+            temp.setId(dto.getId());
+
+            result.add(temp);
+        }
+
+        return result;
+
     }
 
 
@@ -42,11 +54,11 @@ public class ArticleTransformation {
         entity.setAuthor(articleDTO.getAuthor());
         entity.setContent(articleDTO.getContent());
         entity.setDate(articleDTO.getDate());
-        entity.setKeywords(articleDTO.getKeywordDTO().stream()
-                .map(keywordTransformer::toKeyword)
-                .collect(Collectors.toList()));
+
         entity.setCategory(categoryRepository.findById(articleDTO.getCategoryId()).orElse(new Category()));
         entity.setURL(articleDTO.getUrl());
+
+        entity.setKeywords(addKeywordsToEntity(articleDTO, entity));
 
         return entity;
 
@@ -61,11 +73,21 @@ public class ArticleTransformation {
         articleDTO.setAuthor(entity.getAuthor());
         articleDTO.setContent(entity.getContent());
         articleDTO.setDate(entity.getDate());
-        articleDTO.setKeywordDTO(entity.getKeywords().stream()
-                .map(keywordTransformer::toDto)
-                .collect(Collectors.toList()));
         articleDTO.setCategoryId(entity.getCategory().getId());
         articleDTO.setUrl(entity.getURL());
+
+        List<KeywordDTO> keywordDTOList = new ArrayList<>();
+
+        for (Keyword keyword: entity.getKeywords()) {
+            KeywordDTO keywordDTO = new KeywordDTO();
+            keywordDTO.setKeyword(keyword.getKeyword());
+            keywordDTO.setArticleID(entity.getId());
+            keywordDTO.setId(keyword.getId());
+
+            keywordDTOList.add(keywordDTO);
+        }
+
+        articleDTO.setKeywordDTO(keywordDTOList);
 
         return articleDTO;
     }

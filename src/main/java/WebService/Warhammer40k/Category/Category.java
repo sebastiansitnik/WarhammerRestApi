@@ -1,6 +1,7 @@
 package WebService.Warhammer40k.Category;
 
 import WebService.Warhammer40k.Articles.Article;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sun.istack.NotNull;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -30,6 +31,7 @@ public class Category {
     private String URL;
 
     @OneToMany(mappedBy = "category")
+    @JsonManagedReference
     private List<Article> articles = new ArrayList<>();
 
     public Category() {

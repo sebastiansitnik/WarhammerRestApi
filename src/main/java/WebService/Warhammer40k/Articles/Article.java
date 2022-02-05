@@ -2,6 +2,7 @@ package WebService.Warhammer40k.Articles;
 
 import WebService.Warhammer40k.Category.Category;
 import WebService.Warhammer40k.Keyword.Keyword;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -27,6 +28,7 @@ public class Article {
     private String date;
 
     @OneToMany (mappedBy = "article")
+    @JsonManagedReference
     private List<Keyword> keywords = new ArrayList<>();
 
     @ManyToOne

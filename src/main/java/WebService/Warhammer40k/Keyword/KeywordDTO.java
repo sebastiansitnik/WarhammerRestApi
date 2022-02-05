@@ -6,7 +6,7 @@ import WebService.Warhammer40k.Articles.ArticleDTO;
 public class KeywordDTO {
 
     private String id;
-    private ArticleDTO articleDTO;
+    private String articleID;
     private String keyword;
 
     public KeywordDTO() {
@@ -20,12 +20,12 @@ public class KeywordDTO {
         this.id = id;
     }
 
-    public ArticleDTO getArticleDTO() {
-        return articleDTO;
+    public String getArticleID() {
+        return articleID;
     }
 
-    public void setArticleDTO(ArticleDTO articleDTO) {
-        this.articleDTO = articleDTO;
+    public void setArticleID(String articleID) {
+        this.articleID = articleID;
     }
 
     public String getKeyword() {

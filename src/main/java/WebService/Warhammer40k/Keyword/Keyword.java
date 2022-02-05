@@ -1,6 +1,7 @@
 package WebService.Warhammer40k.Keyword;
 
 import WebService.Warhammer40k.Articles.Article;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -20,6 +21,7 @@ public class Keyword {
 
     @ManyToOne
     @JoinColumn
+    @JsonManagedReference
     private Article article;
 
     public Keyword() {
