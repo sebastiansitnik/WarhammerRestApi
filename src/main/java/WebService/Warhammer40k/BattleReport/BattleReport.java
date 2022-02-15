@@ -31,7 +31,27 @@ public class BattleReport {
 
     private String winner;
 
+    private String publishDate;
+
+    private String battleDate;
+
     public BattleReport() {
+    }
+
+    public String getPublishDate() {
+        return publishDate;
+    }
+
+    public void setPublishDate(String publishDate) {
+        this.publishDate = publishDate;
+    }
+
+    public String getBattleDate() {
+        return battleDate;
+    }
+
+    public void setBattleDate(String battleDate) {
+        this.battleDate = battleDate;
     }
 
     public float getId() {
