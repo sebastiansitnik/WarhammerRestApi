@@ -17,26 +17,31 @@ public class BattleReportController {
         this.service = battleReportService;
     }
 
+    @CrossOrigin
     @PostMapping("/add")
-    public BattleReport add(BattleReport battleReport){
+    public BattleReport add(@RequestBody BattleReport battleReport){
         return service.create(battleReport);
     }
 
+    @CrossOrigin
     @PutMapping("/edit")
-    public BattleReport edit(BattleReport battleReport){
+    public BattleReport edit(@RequestBody BattleReport battleReport){
         return service.edit(battleReport);
     }
 
+    @CrossOrigin
     @DeleteMapping("/delete")
-    public BattleReport delete(String id){
+    public BattleReport delete(@RequestParam String id){
         return service.deleteById(id);
     }
 
+    @CrossOrigin
     @GetMapping("/read")
-    public BattleReport readById(String id){
+    public BattleReport readById(@RequestParam String id){
         return service.readById(id);
     }
 
+    @CrossOrigin
     @GetMapping("/readAll")
     public List<BattleReport> readAll(){
         return service.readAll();

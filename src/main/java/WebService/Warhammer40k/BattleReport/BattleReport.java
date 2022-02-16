@@ -1,38 +1,53 @@
 package WebService.Warhammer40k.BattleReport;
 
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 public class BattleReport {
 
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Id
-    private float id;
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    private String id;
 
+    @NotEmpty
     private String title;
 
+    @NotEmpty
     private String player1;
 
+    @NotEmpty
     private String player1Army;
 
+    @NotEmpty
     private String player1Detachment;
 
+    @NotEmpty
     private String player2;
 
+    @NotEmpty
     private String player2Army;
 
+    @NotEmpty
     private String player2Detachment;
 
+    @NotEmpty
     private String text;
 
+    @NotEmpty
     private String winner;
 
+    @NotEmpty
     private String publishDate;
 
+    @NotEmpty
     private String battleDate;
 
     public BattleReport() {
@@ -54,11 +69,11 @@ public class BattleReport {
         this.battleDate = battleDate;
     }
 
-    public float getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(float id) {
+    public void setId(String id) {
         this.id = id;
     }
 
